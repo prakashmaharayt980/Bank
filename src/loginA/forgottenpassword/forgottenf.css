@@ -1,0 +1,89 @@
+
+.form-for-forgotten{
+    box-sizing: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+}
+.forms-forgotten{
+    background-image: url('../loginimage/backglb.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 600px;
+  width: 100%;
+  margin-top: 2rem;
+}
+.forms{
+    background: white;
+  margin: auto;
+   width: 500px;
+  margin-top: 6rem;
+  padding: 30px ;
+}
+.form-forgotten-input {
+  display: flex;
+  justify-content: center;
+  width: 31vw;
+  margin: auto;
+}
+
+.logodiv img{
+    max-height: 60px;
+    position: relative;
+    right: 4vw;
+    top: 30px;
+}
+#title-f{
+    text-align: center;
+  font-size: 20px;
+  font-style: italic;
+  margin: 10px 0;
+}
+#procced-btn {
+  padding: 10px;
+/*! background: green; */
+/*! border: 2px solid black; */
+/*! border-radius: 15px; */
+position: relative;
+/*! left: 80%; */
+  /*! height: fit-content; */
+  top: 13px;
+  color:red;
+}
+#procced-btn:hover{
+  color:green;
+}
+
+@media screen and (max-width: 800px) {
+  .forms{
+    /* background-color: transparent; */
+    width: fit-content;
+    padding: 17px;
+   
+  }
+  .form-forgotten-input {
+   
+    width: fit-content;
+    flex-direction: column;
+  }
+  #procced-btn {
+    font-size: 13px;
+  }
+  #title-f{
+    font-size: 14px;
+  }
+}
+@media screen and (max-width:365px) {
+  #procced-btn {
+    font-size: 10px;
+  }
+  #title-f{
+    font-size: 10px;
+  }
+  .forms{
+     padding: 7px;
+  }
+
+}

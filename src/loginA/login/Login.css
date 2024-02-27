@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.forms-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /*! position: relative; */
+    padding-top: 40px;
+  }
+
+  
+#topimg {
+    max-height: 60px;
+    position: relative;
+    right: 4vw;
+    /*! top: 24px; */
+}
+.midbar {
+    background-image: url('../loginimage/backglb.png');
+    background-size: cover;
+    width:90%;
+    height: 600px;
+    display: inline-grid;
+    justify-content: end;
+    align-content: center;
+    padding-right: 10vw;
+}
+.titlemidbar {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+  }
+  .inputbar {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+  }
+   .label-login {
+    font-size: 18px;
+    color: white;
+    /*! font-family: ; */
+  }
+  .input-box-login {
+    padding: 10px 26px 12px 10px;
+    color: black;
+    font-size: 16px;
+    width: 350px;
+    border: 1px solid black;
+    border-radius: 0.5px;
+  }
+  .errormessage {
+    text-align: center;
+    color: red;
+    font-size: 17px;
+    height: 20px;
+  }
+  .coprate {
+    margin: auto;
+  }
+  #login {
+    padding: 10px 20px;
+    color: white;
+    font-size: 18px;
+    background-color: black;
+    border: 1px solid blanchedalmond;
+    border-radius: 6px;
+    margin: 10px auto auto auto;
+    cursor: pointer;
+    /*! width: ; */
+  }
+  .togle {
+    color: white;
+  }
+  
+  .forgotten-btn{
+    color: wheat;
+    text-decoration: none;
+    font-size: 17px;
+    font-style: italic;
+    margin: 0 10px;
+  }
+
+  @media screen and (max-width:950px) {
+    .midbar{
+      justify-content: center;
+      width: 100%;
+      padding: 0;
+    }
+    #login{
+      font-size: 13px;
+    }
+    .forgotten-btn{
+      font-size: 14px;
+    }
+    
+  }
+
+  @media screen and (max-width:365px) {
+    .midbar{
+      justify-content: center;
+      width: 100%;
+      padding: 0;
+      margin: auto;
+    }
+
+    .input-box-login {
+      font-size: 10px;
+    width: 80vw;
+    /* margin: auto; */
+    }
+
+    #login{
+      font-size: 10px;
+    }
+    .forgotten-btn{
+      font-size: 11px;
+    }
+
+   
+  }
+
+  
+  
+  
+  
+  
+   

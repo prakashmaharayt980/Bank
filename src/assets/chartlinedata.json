@@ -1,0 +1,53 @@
+  
+     {
+      "January": {
+        "receive": 100,
+        "send": 80
+      },
+      "February": {
+        "receive": 120,
+        "send": 90
+      },
+      "March": {
+        "receive": 110,
+        "send": 85
+      },
+      "April": {
+        "receive": 105,
+        "send": 95
+      },
+      "May": {
+        "receive": 115,
+        "send": 100
+      },
+      "June": {
+        "receive": 125,
+        "send": 105
+      },
+      "July": {
+        "receive": 130,
+        "send": 110
+      },
+      "August": {
+        "receive": 135,
+        "send": 115
+      },
+      "September": {
+        "receive": 140,
+        "send": 120
+      },
+      "October": {
+        "receive": 145,
+        "send": 125
+      },
+      "November": {
+        "receive": 150,
+        "send": 130
+      },
+      "December": {
+        "receive": 155,
+        "send": 135
+      }
+    }
+  
+  

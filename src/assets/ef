@@ -1,0 +1,154 @@
+// note-monthlydata extraction
+
+// {import React, { useEffect, useState } from 'react';
+// // import MonthlydataFile from './chartlinedata.json';
+// import weeklyData from './weakly.json';
+// import { Line } from 'react-chartjs-2';
+// import { Chart as ChartJs } from 'chart.js';
+
+// const Monthlydata = () => {
+//   const [data, setData] = useState([]);
+//   const [interval, setInterval] = useState('monthly');
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const data = fetchDataByInterval(interval);
+//       setData(data);
+//     };
+//     fetchData();
+//   }, [interval]);
+
+
+
+// // Function to generate JSON data for a 30-day period
+// function generateMonthlyData() {
+//   const startDate = new Date(); // Today's date
+//   startDate.setDate(startDate.getDate() - 29); // Set start date to 30 days ago
+
+//   const monthlyData = {};
+//   for (let i = 0; i < 30; i++) {
+//     const currentDate = new Date(startDate);
+//     currentDate.setDate(currentDate.getDate() + i); // Add i days to start date
+
+//     const dateString = currentDate.toISOString().slice(0, 10); // Get date string in YYYY-MM-DD format
+
+//     // Generate random data for each day (you can replace this with your own data)
+//     const receive = Math.floor(Math.random() * 100) + 1; // Random receive value between 1 and 100
+//     const send = Math.floor(Math.random() * 100) + 1; // Random send value between 1 and 100
+
+//     monthlyData[dateString] = { receive, send };
+//   }
+
+//   return monthlyData;
+// }
+
+// // Generate JSON data for a 30-day period
+// const MonthlydataFile = generateMonthlyData();
+// console.log(JSON.stringify(MonthlydataFile, null, 2)); // Print the generated JSON data
+
+
+//   const fetchDataByInterval = (interval) => {
+//     if (interval === 'weekly') {
+//       // Fetch weekly data here
+//       // ...
+//       return weeklyData;
+//     } else if (interval === 'monthly') {
+//       return MonthlydataFile;
+  
+//     }
+//   };
+
+//   const labels = Object.keys(data);
+//   const receivedData = labels.map((label) => data[label].receive);
+//   const sentData = labels.map((label) => data[label].send);
+
+//   const linedata = {
+//     labels,
+//     datasets: [
+//       {
+//         label: 'Received',
+//         data: receivedData,
+//         borderColor: 'rgba(75, 192, 192, 1)',
+//         fill: false,
+//       },
+//       {
+//         label: 'Sent',
+//         data: sentData,
+//         borderColor: 'rgba(153, 102, 255, 1)',
+//         fill: false,
+//       },
+//     ],
+//   };
+
+//   const lineoption = {
+//     responsive: true,
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   };
+
+//   return (
+//     <div style={{height:'400px'}}>
+//       <button onClick={() => setInterval('weekly')}>Weekly</button>
+//       <button onClick={() => setInterval('monthly')}>Monthly</button>
+//       {/* <button onClick={() => setInterval('yearly')}>Yearly</button> */}
+//       <Line data={linedata} options={lineoption} style={{height:'100%',width:'100%'}} />
+//     </div>
+//   );
+// };
+
+// export default Monthlydata;}
+
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='/' style={({ isActive }) =>
+    isActive ? activecss : {}} >
+    <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
+    <span className=' font-medium text-xl' >Dash-Board</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='wallets'
+    style={({ isActive }) =>
+        isActive ? activecss : {}} >
+    <FontAwesomeIcon icon={faWallet} className='mt-1' color='gray' size='x' />
+    <span className='' >Wallet</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faArrowRightArrowLeft} className='mt-1' color='gray' size='x' />
+    <span className='' >Fund Transfer</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faCreditCard} className='mt-1' color='gray' size='x' />
+    <span className='' >Cards</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faPeopleRoof} className='mt-1' color='gray' size='x' />
+    <span className='' >Coprate Management</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faBook} className='mt-1' color='gray' size='x' />
+    <span className='' >History</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
+    <span className='' >Other Payment</span>
+</NavLink>
+</li>
+<li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' >
+    <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
+    <span className='' >Customer Service</span>
+</NavLink>
+</li>

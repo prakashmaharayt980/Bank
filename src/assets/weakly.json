@@ -1,0 +1,18 @@
+{
+    "Week1": {
+      "receive": 100,
+      "send": 80
+    },
+    "Week2": {
+      "receive": 50000000,
+      "send": 90
+    },
+    "Week3": {
+      "receive": 110,
+      "send": 85
+    },
+    "Week4": {
+      "receive": 105,
+      "send": 10000000000
+    }
+  }

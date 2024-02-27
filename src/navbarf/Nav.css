@@ -1,0 +1,107 @@
+.side-nav-div {
+    width: 300px; /* Set default width for desktop */
+    background-color: #fff; /* Set background color */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: rgba(24, 20, 21, 0.6) 2px 13px 9px; /* Add box shadow */
+    transform: translateX(0); /* Ensure the menu is visible by default */
+  }
+  
+  .nav-div {
+    padding: 20px; /* Adjust spacing as needed */
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list-nav {
+    padding: 10px 0; /* Adjust spacing as needed */
+  }
+  
+  .list-nav a {
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .list-nav a.active {
+    color: gray; /* Active link color */
+  }
+  
+  .bar-icon {
+    display: none; /* Initially hide the hamburger icon for desktop view */
+  }
+  
+  .logo-div img {
+    width: 100%; /* Make the logo fill its container */
+  }
+  
+  /* Styles for the toggle button */
+  .toggle-menu-btn {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Styles for the button icon */
+  .toggle-menu-btn .bar-icon {
+    display: none;
+  }
+  
+  /* Hide the button icon in mobile view when the menu is open */
+  
+  
+  @media (max-width: 900apx) {
+    /* .side-nav-div {
+       /* Make the sidebar full width on small screens */
+     */
+    .show.nav-div {
+        width: 100%;
+        display: none;
+        opacity: 1;
+        padding: 10px;
+        visibility:visible; 
+        transform: translateX(100%);
+        transition: all 0.5s linear;
+      }
+      .show.side-nav-div{
+        /* width: 100%; */
+      }
+      .hide.side-nav-div{
+        width: 0%;
+      }
+    .hide.nav-div {
+        /* display: ; */
+        width: 0%;
+        opacity: 0;
+        padding: 10px;
+        visibility:hidden; 
+        transform: translateX(0%);
+      }
+    
+    .toggle-menu-btn .bar-icon {
+      display: block; /* Hide the hamburger icon for mobile view */
+    }
+    .logo-div{
+        width: 250px;
+    }
+  
+  
+    .list-nav a {
+      font-size: 16px; /* Adjust font size for smaller screens */
+    }
+  
+   
+  
+   
+  }
+  

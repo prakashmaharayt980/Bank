@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "barchar-dev",
+  "steps": [
+    {
+      "file": "src/componets/Dashbord.jsx",
+      "description": "chart\r\n",
+      "line": 9
+    }
+  ]
+}

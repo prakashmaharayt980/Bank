@@ -1,0 +1,77 @@
+.user {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    margin: 15px 0 0 15px;
+  }
+  
+  .user-name {
+    font-size: 18px;
+    font-weight: initial;
+    margin-bottom: 5px;
+  }
+  
+  .info-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 225px;
+  }
+  
+  .account-details {
+    flex: 1;
+  }
+  
+  .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .value {
+    font-size: 16px;
+  }
+  
+  .eye-icon {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    right: 10%;
+  }
+ 
+@media (max-width: 768px) {
+  .user {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 10px auto; /* Center the user box */
+    padding: 9px 17px;
+    justify-content: center;
+  }
+  .upper{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-box {
+    flex-direction: column; /* Stack info boxes vertically on smaller screens */
+  }
+  
+  .account-details {
+    margin-right: 0; /* Remove margin between info boxes */
+  }
+  .upper{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .eye-icon {
+    position: static; /* Reset position */
+    margin-top: 15px; /* Adjust margin */
+  }
+}
+  

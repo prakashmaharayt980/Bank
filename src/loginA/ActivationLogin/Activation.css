@@ -1,0 +1,88 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.forms-Activation {
+  display: flex;
+   justify-content: center;
+  flex-direction: column;
+  
+  font-family: 'Open Sans', sans-serif;
+  width: 436px;
+   margin: 20px auto;
+  border: none;
+    background-color: rgb(218, 201, 201);
+  font-size: 16px;
+  align-items: center;
+  height: 100%;
+ 
+}
+#header {
+  font-size: 20px;
+}
+/* .password-box{
+  gap: 2px;
+  margin: 10px 0 10px 35px;
+} */
+
+.pasword-style-label{
+  font-size: 20px;
+  color:rgb(87, 72, 72);
+  text-align: initial;
+}
+#activation-btn {
+  display: flex;
+  justify-content:flex-end;
+  align-items: flex-end;
+  padding: 10px 20px;
+  border: 2px solid black;
+  background: green;
+  color: white;
+  margin: 10px 0;
+}
+.formdiv {
+  background-color: rgb(218, 201, 201);
+  display: flex;
+  align-items: center;
+  height: 100%;
+  scroll-snap-type: y mandatory;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+.imgdiv img{
+  width: 50vw;
+  margin-right: 30px;
+}
+@media screen and (max-width:767px){
+  #header {
+    font-size: 14px;
+  }
+  .activation-details{
+    font-size: 13px;
+  }
+  .imgdiv{
+    display: none;
+  }
+  .pasword-style-label{
+    font-size: 13px;
+  }
+  .label-input-box{
+    font-size: 13px;
+  }
+  
+}
+@media screen and (max-width:900px){
+ 
+  .imgdiv{
+    display: none;
+     /* width: 30vw; */
+  }
+}
+/* @media screen and (min-width: 901px) and (max-width: 1080px) {
+  .pass-word-input {
+      width: 40vw;
+  }} */
+
+
+
+  
