@@ -101,7 +101,7 @@
 
 // export default Monthlydata;}
 
-<li className='list-nav'>
+{/* <li className='list-nav'>
 <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='/' style={({ isActive }) =>
     isActive ? activecss : {}} >
     <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
@@ -151,4 +151,84 @@
     <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
     <span className='' >Customer Service</span>
 </NavLink>
-</li>
+</li> */}
+
+
+
+
+// nav
+{/* <li className='list-nav'>
+<NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='/' activeclassname="active">
+    <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
+    <span className=' font-medium text-xl' >Dash-Board</span>
+</NavLink>
+</li> */}
+
+
+
+// input-activation
+<Inputbox
+name="name"
+type="text"
+placeholder={"Enter your name"}
+onBlur={formik.handleBlur}
+onChange={formik.handleChange}
+touched={formik.touched.name}
+value={formik.values.name}
+label="Enter account holder name"
+errormesg={formik.errors.name}
+/>
+
+{/* Input box of email */}
+<Inputbox
+name="email"
+type="email"
+placeholder={"Enter your email"}
+onBlur={formik.handleBlur}
+onChange={formik.handleChange}
+touched={formik.touched.email}
+value={formik.values.email}
+label="Email"
+errormesg={formik.errors.email}
+/>
+
+{/* Input box of password */}
+<div className="password-box">
+<label htmlFor="password" className='pasword-style-label'>Password</label>
+<Togglepassword
+    name='password'
+    type="password"
+    placeholder={"Enter your password"}
+    onBlur={formik.handleBlur}
+    onChange={formik.handleChange}
+    value={formik.values.password}
+    label="Password"
+/>
+{formik.errors.password && formik.touched.password ? (<p className='errormessagebox' >{formik.errors.password}</p>) : null}
+</div>
+
+{/* Input box of account */}
+<Inputbox
+name="account_number"
+type="text"
+placeholder={"Enter your Account no"}
+onBlur={formik.handleBlur}
+onChange={formik.handleChange}
+touched={formik.touched.account_number}
+value={formik.values.account_number}
+label="Account"
+errormesg={formik.errors.account}
+/>
+
+{/* Input box of contact no */}
+<Inputbox
+name="phone_number"
+type="text"
+placeholder={"Enter your number"}
+onBlur={formik.handleBlur}
+onChange={formik.handleChange}
+touched={formik.touched.phone_number}
+value={formik.values.phone_number}
+label="Contact no"
+errormesg={formik.errors.phone}
+/>

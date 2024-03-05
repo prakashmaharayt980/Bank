@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { Line } from 'react-chartjs-2'
-import '../componets/User.css'
-import glbback from '../loginA/loginimage/backglb.png'
+import './User.css'
+// import glbback from '../loginA/loginimage/backglb.png'
 
 export default function Monthlydata() {
   const [data, setdata] = useState([])
@@ -86,7 +86,10 @@ export default function Monthlydata() {
    }
   
   return (
-    <div className='user' style={{height:'400px' ,width:'90%'}}>
+    <div className='user' style={{
+      height:'400px',
+      
+     width:'90%',marginBottom:'10px',}}>
       <Line data={linedata} options={lineoption} style={{height:'100%',width:'100%'}} />
     </div>
   )

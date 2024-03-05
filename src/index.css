@@ -14,3 +14,44 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-contacts-auto-fill-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+
+/* user-css */
+.box-design {
+ 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+.selectedCss_Wallet{
+  background-color: #89d8a887;
+  color: #7f80b6;
+}
+
+.h-80vh{
+  height: 80vh;
+}
+
+.head-style-h1{
+  font-size: 20px;
+  font-weight: bolder;
+  font-style: revert;
+  margin: 10px;
+}
+.Z-index-top{
+  z-index: 100000;
+}

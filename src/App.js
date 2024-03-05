@@ -4,12 +4,10 @@ import ActivationLogin from './loginA/ActivationLogin/ActivationLogin';
 import Forgotten from './loginA/forgottenpassword/Forgotten';
 import { createBrowserRouter,RouterProvider, } from 'react-router-dom';
 import Login from './loginA/login/Login'
-
-
-
 import Layout from './assets/Layout';
-import Dashbord from './componets/Dashbord';
-import Wallets from './componets/Wallets';
+import Dashbord from './componets/Dash_board/Dashbord';
+import Wallets from './componets/Wallet/Wallets';
+import Pass_code from './componets/Wallet/Pass_code';
 
 const router=createBrowserRouter([
   {
@@ -30,13 +28,19 @@ const router=createBrowserRouter([
   children:[
   
     {
-      path:'/',
+      path:'',
       element:<Dashbord></Dashbord>
     },
     {
       path:'wallets',
       element:<Wallets></Wallets>
-    }
+    },
+    
+    {
+      path:'transfer',
+      element:<Pass_code></Pass_code>
+    },
+    
   
   
   ]

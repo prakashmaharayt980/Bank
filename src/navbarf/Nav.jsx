@@ -12,55 +12,43 @@ const Nav = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const navlinkpath = [
+        { to: '/', icon: faChartLine, label: 'Dash-Board' },
+        { to: 'Wallets', icon: faWallet, label: 'Wallets' },
+        { to: 'transfer', icon: faArrowRightArrowLeft, label: 'Fund transfer' },
+        { to: '/', icon: faCreditCard, label: 'Card' },
+        { to: '/', icon: faPeopleRoof, label: 'Cooprate Management' },
+        { to: '/', icon: faBook, label: 'History' },
+        { to: '/', icon: faBars, label: 'QR' },
+    ]
+
+
+
     return (
-        <div className={`m-0 p-0 side-nav-div ${isMobileMenuOpen?'show':'hide'} `} style={{
+        <div className={`m-0 p-0 side-nav-div h-screen  ${isMobileMenuOpen ? 'show' : 'hide'} `} style={{
+            scrollSnapType: 'y mandatory',
+
+            // position:'absolute',
             boxShadow: 'rgba(24, 20, 21, 0.6) 2px 13px 9px'
         }}>
-            <button className="toggle-menu-btn" onClick={toggleMobileMenu}>
-                <FontAwesomeIcon icon={faBars} className="bar-icon" color='gray' size='x' />
+            <button className="toggle-menu-btn " onClick={toggleMobileMenu}>
+                <FontAwesomeIcon icon={faBars} className="bar-icon" color='gray' size='2x' />
             </button>
-            <nav className={`w-full nav-div ${isMobileMenuOpen?'show':'hide'} `}>
+            <nav className={`w-full nav-div ${isMobileMenuOpen ? 'show' : 'hide'} `}>
                 <div className="logo-div relative top-3 ">
                     <img src={glb} className=' w-fit' alt="global-logo" />
                 </div>
                 <ul className='h-screen flex flex-col gap-4 justify-start mt-5'>
-                    <li className='list-nav'>
-                        <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='/' activeclassname="active">
-                            <FontAwesomeIcon icon={faChartLine} className='mt-1' color='gray' size='x' />
-                            <span className=' font-medium text-xl' >Dash-Board</span>
-                        </NavLink>
-                    </li>
-                    <li className='list-nav'>
-                        <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='/wallets' activeclassname="active">
-                            <FontAwesomeIcon icon={faWallet} className='mt-1' color='gray' size='x' />
-                            <span className='' >Wallet</span>
-                        </NavLink>
-                    </li>
-                    <li className='list-nav'>
-                        <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' activeclassname="active">
-                            <FontAwesomeIcon icon={faArrowRightArrowLeft} className='mt-1' color='gray' size='x' />
-                            <span className='' >Fund Transfer</span>
-                        </NavLink>
-                    </li>
-                    <li className='list-nav'>
-                        <NavLink className='text-black flex justify-start gap-4 justify-self-center' to='#' activeclassname="active">
-                            <FontAwesomeIcon icon={faCreditCard} className='mt-1' color='gray' size='x' />
-                            <span className='' >Cards</span>
-                        </NavLink>
-                    </li>
-                    <li className='list-nav'>
-                        <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' activeclassname="active">
-                            <FontAwesomeIcon icon={faPeopleRoof} className='mt-1' color='gray' size='x' />
-                            <span className='' >Corporate Management</span>
-                        </NavLink>
-                    </li>
-                    <li className='list-nav'>
-                        <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to='#' activeclassname="active">
-                            <FontAwesomeIcon icon={faBook} className='mt-1' color='gray' size='x' />
-                            <span className='' >History</span>
-                        </NavLink>
-                    </li>
-                    {/* Add other menu items here */}
+                    {
+                        navlinkpath.map((link, index) => (
+                            <li className='list-nav' key={index}>
+                                <NavLink className='text-black  flex justify-start gap-4 justify-self-center' to={link.to} activeclassname="active">
+                                    <FontAwesomeIcon icon={link.icon} className='mt-1' color='gray' size='x' />
+                                    <span className=' font-medium text-xl' >{link.label}</span>
+                                </NavLink>
+                            </li>
+                        ))
+                    }
                 </ul>
             </nav>
         </div>

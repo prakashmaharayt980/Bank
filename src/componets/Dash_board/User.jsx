@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUser } from '../assets/Apicall';
+import { getUser } from '../../assets/Apicall';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import './User.css'
@@ -8,6 +8,7 @@ function User() {
   const [user, setUser] = useState(null);
   const [visibledata,setvisibledata]=useState(false)
 
+  
   useEffect(() => {
     getUser().then((data) => {
       setUser(data);

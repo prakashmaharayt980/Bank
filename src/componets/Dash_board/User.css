@@ -43,8 +43,13 @@
     position: relative;
     right: 10%;
   }
+
+  .circle-chart{
+    width: 400px;
+    margin: 15px 0 0 0;
+  }
  
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .user {
     width: 90%; /* Adjust width for smaller screens */
     margin: 10px auto; /* Center the user box */
@@ -54,12 +59,26 @@
   .upper{
     flex-wrap: wrap;
     justify-content: center;
+    gap:10px;
+  }
+  .info-box {
+    /* display: flex; */
+    justify-content: space-around;
+    margin-bottom: 10px;
+     gap: 100px;
+    /* align-content: center; */
+    align-items: end;
+    flex-direction: row;
+  }
+  .circle-chart{
+    width: 91vw;
+    margin: 0 20px;
   }
 }
 
 @media (max-width: 480px) {
   .info-box {
-    flex-direction: column; /* Stack info boxes vertically on smaller screens */
+    flex-direction: row; /* Stack info boxes vertically on smaller screens */
   }
   
   .account-details {

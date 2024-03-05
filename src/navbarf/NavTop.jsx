@@ -12,12 +12,13 @@ const NavTop = () => {
     };
 
     return (
-        <div className='flex justify-end align-middle  sticky w-screen' style={{ backgroundColor:'#f9f9f9',
+        <div className='flex justify-end align-middle   w-full ' style={{ backgroundColor:'#f9f9f9',
         height: '46px' ,
    
         boxShadow:' rgba(24, 20, 21, 0.5) 1px 5px 14px' 
         }}>
             <li className='list-none tooltip'>
+                
                 <FontAwesomeIcon
                     icon={faArrowRight}
                     size="2x"

@@ -8,11 +8,14 @@
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
     box-shadow: rgba(24, 20, 21, 0.6) 2px 13px 9px; /* Add box shadow */
-    transform: translateX(0); /* Ensure the menu is visible by default */
+    transform: translateX(0);
+    overflow-y: scroll; /* Ensure the menu is visible by default */
   }
   
   .nav-div {
     padding: 20px; /* Adjust spacing as needed */
+    /* overflow-y: scroll; */
+    
   }
   
   ul {
@@ -50,6 +53,7 @@
     border: none;
     padding: 10px;
     cursor: pointer;
+    scroll-snap-align: start;
   }
   
   /* Styles for the button icon */
@@ -57,25 +61,29 @@
     display: none;
   }
   
-  /* Hide the button icon in mobile view when the menu is open */
   
   
-  @media (max-width: 900apx) {
-    /* .side-nav-div {
-       /* Make the sidebar full width on small screens */
-     */
+  
+  @media (max-width: 900px) {
+   
+     .toggle-menu-btn {
+      width: fit-content;
+     }
+     .side-nav-div{
+      overflow-y: visible;
+      height: 100vh;
+     }
     .show.nav-div {
         width: 100%;
-        display: none;
+        display: block;
         opacity: 1;
         padding: 10px;
         visibility:visible; 
-        transform: translateX(100%);
+        overflow-y: visible;
+        /* transform: translateX(100%); */
         transition: all 0.5s linear;
       }
-      .show.side-nav-div{
-        /* width: 100%; */
-      }
+     
       .hide.side-nav-div{
         width: 0%;
       }
@@ -85,7 +93,7 @@
         opacity: 0;
         padding: 10px;
         visibility:hidden; 
-        transform: translateX(0%);
+        /* transform: translateX(0%); */
       }
     
     .toggle-menu-btn .bar-icon {
@@ -99,6 +107,7 @@
     .list-nav a {
       font-size: 16px; /* Adjust font size for smaller screens */
     }
+    
   
    
   
