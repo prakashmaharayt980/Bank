@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-{/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-is/18.2.0/umd/react-is.production.min.js" /> */}
+import MyContextProvider from './assets/Contextfile';
+import { AuthContextProvider } from './assets/AuthContext';
 
-
+// Use createRoot to render your root component
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render your root component using createRoot
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+    <MyContextProvider>
+      <App />
+    </MyContextProvider>
+    </AuthContextProvider>
+   
   </React.StrictMode>
 );
 

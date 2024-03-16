@@ -13,12 +13,12 @@ const Nav = () => {
     };
 
     const navlinkpath = [
-        { to: '/', icon: faChartLine, label: 'Dash-Board' },
+        { to: 'dashboard', icon: faChartLine, label: 'Dash-Board' },
         { to: 'Wallets', icon: faWallet, label: 'Wallets' },
         { to: 'transfer', icon: faArrowRightArrowLeft, label: 'Fund transfer' },
         { to: '/', icon: faCreditCard, label: 'Card' },
         { to: '/', icon: faPeopleRoof, label: 'Cooprate Management' },
-        { to: '/', icon: faBook, label: 'History' },
+        { to: 'history', icon: faBook, label: 'History' },
         { to: '/', icon: faBars, label: 'QR' },
     ]
 

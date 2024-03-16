@@ -1,58 +1,64 @@
-
-
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Layout from './assets/Layout';
 import ActivationLogin from './loginA/ActivationLogin/ActivationLogin';
 import Forgotten from './loginA/forgottenpassword/Forgotten';
-import { createBrowserRouter,RouterProvider, } from 'react-router-dom';
-import Login from './loginA/login/Login'
-import Layout from './assets/Layout';
-import Dashbord from './componets/Dash_board/Dashbord';
+import Login from './loginA/login/Login';
+import Dashboard from './componets/Dash_board/Dashbord';
 import Wallets from './componets/Wallet/Wallets';
-import Pass_code from './componets/Wallet/Pass_code';
+import Fund from './componets/Fundtransfer/Fund';
+import PageNotFound from './assets/PageNotFound';
+import Historyfile from './componets/HistoryFile/Historyfile';
 
-const router=createBrowserRouter([
+
+const router = createBrowserRouter([
   {
-    path:'activationlogin',
-    element:<ActivationLogin></ActivationLogin>
+    path: 'activationlogin',
+    element: <ActivationLogin />,
   },
-    {
-    path:'forgotten',
-    element:<Forgotten></Forgotten>
+  {
+    path: 'forgotten',
+    element: <Forgotten />,
   },
-    {
-    path:'login',
-    element:<Login></Login>
+  {
+    path: '/',
+    element: <Login />,
   },
- {
-  path:'/',
-  element:<Layout/>,
-  children:[
   
-    {
-      path:'',
-      element:<Dashbord></Dashbord>
-    },
-    {
-      path:'wallets',
-      element:<Wallets></Wallets>
-    },
+  {
+    path: '*',
+    element:<Login /> ,
+  },
+  {
+    path: '/',
+    element: <Layout />,
     
-    {
-      path:'transfer',
-      element:<Pass_code></Pass_code>
-    },
-    
-  
-  
-  ]
- }
-
-])
+    children: [
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
+      },
+      {
+        path: 'wallets',
+        element: <Wallets />,
+      },
+      {
+        path: 'transfer',
+        element: <Fund/>,
+      },
+      {
+        path: 'history',
+        element: <Historyfile/>,
+      },
+    ],
+  },
+]);
 
 function App() {
   return (
-   <main>
-  <RouterProvider router={router}/>
-   </main>
+    <main>
+      <RouterProvider router={router}/>      
+      
+    </main>
   );
 }
 

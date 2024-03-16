@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import User from './User';
 import { Doughnut, Line } from 'react-chartjs-2';
 import Transectiondata  from '../../assets/Transectiondata'; // Import Transectiondata as named export
 import  Monthlydata from './Monthlydata'; // Import Monthlydata as named export
 import { Chart, defaults } from 'chart.js/auto';
 import './User.css';
+import { MyContext } from '../../assets/Contextfile';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -19,6 +22,8 @@ const Dashbord = () => {
 
     const tran_data = Transectiondata();
     const Monthlydatas = Monthlydata();
+    
+    const {user} =useContext(MyContext)
 
     // Extracting categories from the JSON data
     const categories = tran_data.reduce((acc, curr) => {
@@ -62,11 +67,16 @@ const Dashbord = () => {
             },
         },
     };
-
-
+     const validationUser=user?.user ?true :false
+     console.log(validationUser);
+   
+    //  ${validationUser ? '':'animate-spin'}
 
     return (
-        <div className=' scroll-smooth h-full' >
+       <>
+       {
+        validationUser ?(
+            <div className={`scroll-smooth h-full  `}>
             <div className="upper flex  gap-12">
                 <User />
                 <div className="circle-chart user" style={{  position: 'relative', height: '300px', padding: '0 20px' }}>
@@ -76,6 +86,14 @@ const Dashbord = () => {
           
            <Monthlydata/>
         </div>
+        ) :(
+            <div className="loading   h-dvh flex justify-center  justify-items-center items-center w-full">
+               <FontAwesomeIcon className='animate-spin' size='2x' icon={faSpinner}/>
+               <h1>Loading</h1>
+            </div>
+        )
+       }
+       </>
     );
 };
 

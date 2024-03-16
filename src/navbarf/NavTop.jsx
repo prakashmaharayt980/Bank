@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
-import { useNavigate } from 'react-router-dom'; 
+import {  useNavigate } from 'react-router-dom'; 
+import AuthContext from '../assets/AuthContext';
 
 const NavTop = () => {
-    const navigate = useNavigate(); // Initialize useHistory hook
+  const AuthLog= useContext(AuthContext)
+  const nagvi=useNavigate()
 
     const exitHandle = () => {
-        navigate('/login'); // Redirect to the login page when exit button is clicked
+       AuthLog.logout()
+      nagvi('/',{replace:true})
+               
     };
 
     return (

@@ -1,88 +1,106 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import glb from '../loginimage/glb.png';
 import './Login.css';
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { LoadingButton } from '@mui/lab';
 import Togglepassword from '../togglepassword/Togglepassword';
-
-
-  const initialValues={
-    name:"",
-    password:""
-  }
-  const validatedata=Yup.object({
-      name:Yup.string().email()
-    
-      .required("please enter your username"),
-      password:Yup.string().required("please enter your password")
-  })
-
-
-
+import AuthContext from '../../assets/AuthContext';
+import { MyContext } from '../../assets/Contextfile';
 
 const Login = () => {
-  
+    const navigate = useNavigate();
+    const Authtoken = useContext(AuthContext);
+    
+    const [errorMsg, setErrorMsg] = useState('');
+    const [loading, setLoading] = useState(false); // State variable to track loading status
 
-    const {values,errors,handleBlur,handleChange,handleSubmit,touched}=  useFormik({
-        initialValues:initialValues,
-        validationSchema:validatedata,
-        onSubmit:(values,action)=>{
-            console.log('formikvalues',values);
-             action.resetForm()
-        }
-       
+    const initialValues = {
+        email: "",
+        password: ""
+    };
+
+    const validationSchema = Yup.object({
+        email: Yup.string().email().required("Please enter a valid email address"),
+        password: Yup.string().required("Please enter your password")
     });
-    // console.log('error',errors)
-   
-    return (
-      
-        <>
-       <form  className='forms-login' onSubmit={handleSubmit}>
-        <div className="topbar">
-            <img src={glb} alt="img1"  id='topimg'/>
-        </div>
-        <div className="midbar" >
-            {/* <h1 className="titlemidbar">login</h1> */}
-         <div className="inputbar">   
-                <label htmlFor="name" className='label-login'>Email</label>
-                <input type="text" name='name'
-                autoComplete='off'
-                values={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className='input-box-login'
-                placeholder='Enter your email'
-                />
-               {errors.name && touched.name? (<p className="errormessage">{errors.name}</p>):null}
-        </div>
-         <div className="inputbar" style={{margin:'0px'}}>   
-                <label htmlFor="name" className='label-login'>Password</label>
-             <Togglepassword
-             name='password'
-             
-             value={values.password}
-             onChange={handleChange}
-             onBlur={handleBlur}
-             placeholder={"enter your password"}
-             
 
-             />
-           
-               
-            {errors.password && touched.password? (<p className="errormessage">{errors.password}</p>):null}
-        </div>
-      
-        <button id="login" type='submit'>Login</button>
-        <div className="forgotten text-center">
-            <Link to="/activationlogin" className='forgotten-btn' >Not activated</Link>
-            <Link to="/forgotten" className='forgotten-btn'>Forgotten</Link>
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: validationSchema,
+        onSubmit: async (values, resetForm) => {
+            // const url = 'https://dummyjson.com/auth/login'; // Example URL
+            const url='http://192.168.1.77:8000/api/login/'
+            try {
+                setLoading(true); // Set loading to true when form is submitted
+                const response = await axios.post(url, values);
+
+                if (response.status === 200) {
+                    const data = response.data;
+                   Authtoken.login(data.access_token);
+                   
+                     localStorage.setItem('token',data.access_token)
+                    console.log('Login response:', data.id);
+                    navigate('dashboard', { replace: true });
+                }
+            } catch (error) {
+                setErrorMsg(error.message);
+            } finally {
+                setLoading(false); // Set loading to false after API response
+            }
+        }
+    });
+
+    return (
+        <form className='forms-login' onSubmit={formik.handleSubmit}>
+            <div className="topbar">
+                <img src={glb} alt="img1" id='topimg' />
             </div>
-        </div>
-            
+            <div className="midbar">
+                <div className="inputbar">
+                    <label htmlFor="email" className='label-login'>email</label>
+                    <input
+                        type="text"
+                        name='email'
+                        autoComplete='off'
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className='input-box-login'
+                        placeholder='Enter your email'
+                    />
+                    {formik.errors.email && formik.touched.email && (<p className="errormessage">{formik.errors.email}</p>)}
+                </div>
+                <div className="inputbar" style={{ margin: '0px' }}>
+                    <label htmlFor="password" className='label-login'>Password</label>
+                    <Togglepassword
+                        name='password'
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        placeholder={"Enter your password"}
+                    />
+                    {formik.errors.password && formik.touched.password && (<p className="errormessage">{formik.errors.password}</p>)}
+                </div>
+                {/* Conditionally render loading spinner or login button */}
+                {loading ? (
+                    <LoadingButton loading variant="outlined" >
+                        Login
+                    </LoadingButton>
+                ) : (
+                    <button id="login" type='submit'>
+                        Login
+                    </button>
+                )}
+                <div className="forgotten text-center">
+                    <Link to="/activationlogin" className='forgotten-btn'>Not activated</Link>
+                    <Link to="/forgotten" className='forgotten-btn'>Forgotten</Link>
+                </div>
+                {errorMsg && <h1>{errorMsg}</h1>}
+            </div>
         </form>
-        </>
     );
 }
 
