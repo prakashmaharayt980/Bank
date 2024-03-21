@@ -8,6 +8,8 @@ import Wallets from './componets/Wallet/Wallets';
 import Fund from './componets/Fundtransfer/Fund';
 import PageNotFound from './assets/PageNotFound';
 import Historyfile from './componets/HistoryFile/Historyfile';
+import Cardfile from './componets/Card/Cardfile';
+import Passcode from './componets/Wallet/Passcode';
 
 
 const router = createBrowserRouter([
@@ -49,6 +51,11 @@ const router = createBrowserRouter([
         path: 'history',
         element: <Historyfile/>,
       },
+      {
+        path: 'card',
+        element: <Cardfile/>,
+      },
+     
     ],
   },
 ]);

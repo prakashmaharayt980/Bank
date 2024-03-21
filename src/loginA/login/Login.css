@@ -19,7 +19,7 @@
     /*! top: 24px; */
 }
 .midbar {
-    background-image: url('../loginimage/backglb.png');
+    background-image: url('/public/backglb.png');
     background-size: cover;
     width:90%;
     height: 600px;
@@ -38,6 +38,7 @@
     flex-direction: column;
     margin: 5px 0;
   }
+
    .label-login {
     font-size: 18px;
     color: white;
@@ -50,6 +51,10 @@
     width: 350px;
     border: 1px solid black;
     border-radius: 0.5px;
+  }
+  .input-box-login::placeholder{
+    color: rgb(59, 55, 55);
+    border: none;
   }
   .errormessage {
     text-align: center;

@@ -9,22 +9,22 @@ const Historyfile = () => {
 
   useEffect(() => {
     const headers = {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: `Token ${localStorage.getItem('token')}`
       };
-    // Fetch transaction data from the server
+    
     const fetchTransactions = async () => {
       try {
         const response = await axios.get('http://192.168.1.77:8000/api/transaction-history',{headers});
 
-        setTransactions(response.data);
-        console.log(transactions);
+        setTransactions(response.data) 
+              
       } catch (error) {
         console.error('Error fetching transactions:', error);
       }
     };
 
     fetchTransactions();
-  }, []); // Run this effect only once on component mount
+  }, []); 
 
   return (
     <div>

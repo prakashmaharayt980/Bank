@@ -1,7 +1,7 @@
 import React from 'react'
 import { createContext,useState } from 'react'
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
     token: '',
     isLoginedIn: false,
     login: (token) => { },
@@ -10,7 +10,7 @@ const AuthContext = React.createContext({
 
 export const AuthContextProvider=({children})=>{
     const initalToken=localStorage.getItem('token') || ''
-    console.log(initalToken)
+   
     const [token, settoken] = useState(initalToken)
     const isLoginedIn= true // !!token
 
@@ -18,6 +18,7 @@ export const AuthContextProvider=({children})=>{
        
         settoken(token)
         localStorage.setItem('token',token)
+
     }
 
     const handlerLogout=()=>{
@@ -33,7 +34,7 @@ export const AuthContextProvider=({children})=>{
         logout:handlerLogout
         
     }
-    console.log('token',token)
+  
 
     return(
         <AuthContext.Provider value={ContestValue} >

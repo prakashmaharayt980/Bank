@@ -6,7 +6,7 @@ import './inputbox.css'
 const Inputbox = ({label,name,placeholder,onChange,onBlur,errormesg,type,touched,value}) => {
        
     return (
-        <div className='input-box'>
+        <div className='input-box font-can'>
             <label htmlFor={name} className='label-input-box' >{label}</label>
             <input
             className='input-input-box'

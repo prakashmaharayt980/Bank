@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    margin: 10px;
+    /* margin: 10px; */
 }
 .label-input-box{
     font-size: 16px;
@@ -26,18 +26,12 @@
 }
 .input-input-box::placeholder{
     color: rgb(59, 55, 55);
-    font-family: 'Work Sans', sans-serif;
+    
     border: none;
    
 }
 
-.errormessagebox{
-    height: 5px;
-    color:#a24141;
-    margin-bottom: 10px;    
-    text-align: center;
-    font-family: 'Work Sans', sans-serif;
-}
+
 
 
   @media screen and (max-width:365px) {

@@ -1,19 +1,13 @@
-import React, { useContext, useState } from 'react';
-
+import React, {  useState,useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Continue_Conform from './Continue_Conform';
-import Pass_code from './Pass_code';
-import axios from 'axios';
-import { MyContext } from '../../assets/Contextfile';
+import ContinueConform from './ContinueConform';
+import Passcode from './Passcode';
 import TypeComp from '../Fundtransfer/TypeComp';
 import AmountInputDiv from '../Fundtransfer/AmountInputDiv';
 import { Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-
-
-
-
+import {MyContext }from '../../assets/Contextfile'
 
 //input box type
 const input_Wallet = [
@@ -27,7 +21,7 @@ const Wallets = () => {
     const [transection, settransection] = useState([]); //after completing paid
     const [clickedsubmitted, setclickedsubmitted] = useState(false); //submitted or not
     const [checkedamount, setcheckedamount] = useState(false); //amount checked after submitting
-    const [showpasscode, setshowpasscode] = useState(false); //pass_code visible
+    const [showpasscode, setshowpasscode] = useState(false); //Passcode visible
     const [readonly, setreadonly] = useState(false); //read mode
 
     //wallet details
@@ -43,22 +37,18 @@ const Wallets = () => {
     // TODO:user.user.account_balance
     const sender_account_Amount = 100000;
     //amount check
-    const amountChecked = () => {
-        const validAmount = sending_amount <= sender_account_Amount;
-        setcheckedamount(validAmount);
+    
+
+     const{user}= useContext(MyContext)
+    //continue for submit
+    const handleButtonTrack = () => {
+        const validAmount = sending_amount <= sender_account_Amount && sending_amount >=10;
+        setcheckedamount(validAmount)
         if (validAmount) {
             setclickedsubmitted(true);
         } else {
             setclickedsubmitted(false);
         }
-    };;
-
-    //  TODO:  const{user}= useContext(MyContext)
-    //continue for submit
-    const handleButtonTrack = () => {
-        amountChecked();
-        console.log('cli', clickedsubmitted);
-        console.log('am', checkedamount);
        
 
         if (checkedamount && clickedsubmitted) {
@@ -70,7 +60,7 @@ const Wallets = () => {
                 amount: formik.values.load_amount,
                 account_receiver: formik.values.wallet_id,
                 remarks: formik.values.remarks,
-                sender_house: 123456789,//TODO:user.user.account_number
+                sender_house:user?.user?.account_number,
                 receiver_house: 'Wallet_name',
                 sending_amount: 'Amount',
                 receiver_account: 'To',
@@ -83,9 +73,10 @@ const Wallets = () => {
 
     };
 
-    //handleShowPass_code
+    //handleShowPasscode
     const handlePasscode = () => {
         setshowpasscode(!showpasscode);
+        
     }
 
     const restreadmode = () => {
@@ -143,8 +134,7 @@ const Wallets = () => {
             try {
                 const entervalues = parseInt(value.input_pin1 + value.input_pin2 + value.input_pin3 + value.input_pin4)
                 console.log('wallet', { entervalues, selected_label, ...value })
-                resetForm()
-                restformTotal()
+               
 
             } catch (error) {
 
@@ -191,7 +181,7 @@ const Wallets = () => {
 
                         {checkedamount && clickedsubmitted && (
                             <div className="wallet-right-container h-8vh mt-5">
-                                <Continue_Conform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
+                                <ContinueConform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
                             </div>
                         )}
                         {!checkedamount && clickedsubmitted && <p>Please</p>}
@@ -200,7 +190,7 @@ const Wallets = () => {
                 {showpasscode && (
                     <div className='flex justify-center items-center flex-col gap-3 h-80vh w-4/5 mx-auto my-4 z-index-top box-design'> 
                     
-                     <Pass_code onClose={handlePasscode} formik={formik} />
+                     <Passcode onClose={handlePasscode} formik={formik} />
                         
                             <Button variant="contained" className='input_wallet_button ' type='submit' color='success' endIcon={<SendIcon />}>
                                 Send

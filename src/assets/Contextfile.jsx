@@ -1,49 +1,37 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-// import AuthContext from './AuthContext';
 
-export const MyContext = createContext({});
+import React, { createContext, useState } from 'react';
+import axios from 'axios';
+
+
+export const MyContext = createContext({
+    fetchData:()=>{}
+});
 
 
 const MyContextProvider = ({ children }) => {
-//    const Authtoken= useContext(AuthContext)
    
-//    const tokens =Authtoken.token
     const [user, setUser] = useState();
+    const fetchData = async () => {
+        const url = 'http://192.168.1.77:8000/api/user/'  //manish
+     
+        try {
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json' // Corrected header name
+                }
+            });
+            const data = response.data;
+            setUser(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+          
+        }
+    }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const url='http://192.168.1.77:8000/api/user/'  //manish
-            // const url ='https://dummyjson.com/auth/me' //testing
-            try {
-                const response = await axios.get(url, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json' // Corrected header name
-                    }
-                });
-
-               
-                    const data =  response.data;
-                    
-                   
-                    setUser(data);
-                    
-                
-              
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                // Handle error
-            }
-        };
-
-       
-            fetchData();
-        
-    }, []); // Fetch data whenever token changes
 
     return (
-        <MyContext.Provider value={{ user }}>
+        <MyContext.Provider value={{ user,fetchData }}>
             {children}
         </MyContext.Provider>
     );

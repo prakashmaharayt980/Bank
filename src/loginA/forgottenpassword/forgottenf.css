@@ -8,7 +8,7 @@
     flex-direction: column;
 }
 .forms-forgotten{
-    background-image: url('../loginimage/backglb.png');
+    background-image: url('/public/backglb.png');
     background-size: cover;
     background-repeat: no-repeat;
     height: 600px;

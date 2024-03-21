@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { Line } from 'react-chartjs-2'
 import './User.css'
-// import glbback from '../loginA/loginimage/backglb.png'
+
 
 export default function Monthlydata() {
   const [data, setdata] = useState([])

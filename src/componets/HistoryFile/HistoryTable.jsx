@@ -11,6 +11,7 @@ const HistoryTable = ({ transactions }) => {
         <thead>
           <tr>
             <th>Receiver Name</th>
+            <th>Receiver Account </th>
             <th>Amount</th>
             <th>Date</th>
             <th>Remarks</th>
@@ -19,9 +20,10 @@ const HistoryTable = ({ transactions }) => {
         <tbody>
           {transactions.map((transaction, index) => (
             <tr key={index}>
-              <td>{transaction.receiverName}</td>
+              <td>{transaction.receiver}</td>
+              <td>{transaction.receiver_account_number}</td>
               <td>${transaction.amount}</td>
-              <td>{transaction.date}</td>
+              <td>{transaction.timestamp}</td>
               <td>{transaction.remarks}</td>
             </tr>
           ))}

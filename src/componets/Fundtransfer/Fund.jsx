@@ -2,15 +2,13 @@ import React, { useContext, useState } from 'react';
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import ContinueConform from '../Wallet/Continue_Conform';
-import PassCode from '../Wallet/Pass_code';
+import ContinueConform from '../Wallet/ContinueConform';
+import PassCode from '../Wallet/Passcode';
 
 import axios from 'axios';
 import { MyContext } from '../../assets/Contextfile';
 import TypeComp from './TypeComp';
 import AmountInputDiv from './AmountInputDiv';
-import { Button } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
 import Bankdata from '../../assets/Bank.json'
 import { nanoid } from '@reduxjs/toolkit';
 import AuthContext from '../../assets/AuthContext';
@@ -31,7 +29,7 @@ const Fund = () => {
   const [transection, settransection] = useState([]); //after completing paid
   const [clickedsubmitted, setclickedsubmitted] = useState(false); //submitted or not
   const [checkedamount, setcheckedamount] = useState(false); //amount checked after submitting
-  const [showpasscode, setshowpasscode] = useState(false); //pass_code visible
+  const [showpasscode, setshowpasscode] = useState(false); //Passcode visible
   const [readonly, setreadonly] = useState(false); //read mode
   const [selectedOptionValue, setselectedOptionValue] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -73,10 +71,10 @@ const Fund = () => {
     initialValues,
     validationSchema,
     onSubmit: async (value, { resetForm }) => {
-      
+
       try {
         const headers = {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Token ${localStorage.getItem('token')}`
         };
         const transaction_pin = parseInt(value.input_pin1 + value.input_pin2 + value.input_pin3 + value.input_pin4)
         const receiver_account_number = value.Account_number
@@ -86,15 +84,15 @@ const Fund = () => {
         const access_token = AuthsendingToken.token;
 
 
-        console.log('Bank', { transaction_pin, receiver_account_number, receiver_name, remarks, amount, access_token,sender:user?.user })
+        console.log('Bank', { transaction_pin, receiver_account_number, receiver_name, remarks, amount, access_token, sender: user?.user })
 
         const response = await axios.post('http://192.168.1.77:8000/api/balance-transfer',
           {
-            'transaction_pin': transaction_pin,
-            'receiver_account_number': receiver_account_number,
-            'receiver_name': receiver_name,
-            'remarks': remarks,
-            'amount': amount,
+            transaction_pin,
+            receiver_account_number,
+            receiver_name,
+            remarks,
+            amount,
             credentials: "include"
             // sender:user?.user?.id,
             // access_token
@@ -102,45 +100,39 @@ const Fund = () => {
           {
             headers
           },
-         {
-          mode: "cors",
-          cache: "default",
-         }
-          )
+          {
+            mode: "cors",
+            cache: "default",
+          }
+        )
 
         if (response.ok) {
           setsucessMeg(response.data.message)
           console.log(response.data.message)
 
         }
+        if (!response.ok) {
+          errorMessage(response.data.message)
+          console.log(response.data.message)
+
+        }
 
 
       } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          // Set form errors based on server response
-          setErrorMessage(error.response.data.errors);
-        } else {
-          // Set a general error message if no specific validation errors are provided
-          setErrorMessage('An error occurred while processing your request. Please try again later.');
-        }
+        setErrorMessage(error.message)
       } finally {
         resetForm()
         restformTotal()
       }
     },
   });
-
-
   //amount check
- 
-
-
   const { user } = useContext(MyContext)
   const AuthsendingToken = useContext(AuthContext)
   //continue for submit
   const handleButtonTrack = () => {
-   
-     if(sending_amount >9){
+
+    if (sending_amount > 9) {
       const validAmount = sending_amount <= sender_account_Amount;
       setcheckedamount(validAmount);
       if (validAmount) {
@@ -148,7 +140,7 @@ const Fund = () => {
       } else {
         setcheckedamount(false)
         setclickedsubmitted(false);
-      } 
+      }
       if (checkedamount && clickedsubmitted) {
         restreadmode()
         const new_transectiondata = {
@@ -165,17 +157,17 @@ const Fund = () => {
           remarks_A: 'Remarks',
           User_label: 'Account_holder'
         };
-  
+
         settransection([new_transectiondata]);
         setsendTranjection(true)
       }
-     }
- 
+    }
+
 
   };
 
 
-  //handleShowPass_code
+  //handleShowPasscode
   const handlePasscode = () => {
     setshowpasscode(!showpasscode);
   }
@@ -213,26 +205,26 @@ const Fund = () => {
 
   //bank balance
 
-  const sender_account_Amount = user?.user?.account_balance;
+  const sender_account_Amount = 1000   //user?.user?.account_balance ;
   // const sender_account_Amount = 
-  const account_receiver= formik.values.Account_number
+  const account_receiver = formik.values.Account_number
   //which Bank select
   const selected_label_method = BanksDetails.find((Bank) => Bank.id === selectedBank)?.label;
   //amount
   const sending_amount = formik.values.load_amount;
   // bankid name
   const bankname = Bankdata.find(bank => bank.id === 11)
-  const userid=user?.user?.id
+
 
 
   return (
     <>
       <form onSubmit={(e) => {
-        
+
         formik.handleSubmit(e);
       }}>
         {!showpasscode && (
-          <div className="Bank-container box-design flex flex-row h-lvh">
+          <div className="Bank-container box-design flex flex-row h-90vh m-3">
 
             <div className="Bank-left-container  w-3/5 mx-10">
               <h1 className='text-center font-bold text-xl'>Fund Transfer</h1>
@@ -271,38 +263,23 @@ const Fund = () => {
                 formik={formik}
               />
             </div>
-           
-           
-              <div className="Bank-right-container h-8vh mt-5">
-              {checkedamount && clickedsubmitted && sendTranjection && ( 
- <ContinueConform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
+
+
+            <div className="Bank-right-container h-8vh mt-5">
+              {checkedamount && clickedsubmitted && sendTranjection && (
+                <ContinueConform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
               )}
-              </div>
-           
-            {!checkedamount && clickedsubmitted && <p>Please</p>}
+            </div>
+
+            {!checkedamount && clickedsubmitted && <p>Please check Your Amount</p>}
           </div>
         )}
         {showpasscode && (
           <div className='flex justify-center items-center flex-col gap-3 h-80vh w-4/5 mx-auto my-4 z-index-top box-design'>
-
-            <PassCode onClose={handlePasscode} formik={formik} />
-
-            <Button variant="contained" className='input_Bank_button ' type='submit' color='success' endIcon={<SendIcon />}>
-              Send
-            </Button>
-
+            <PassCode onClose={handlePasscode} errorMessage={errorMessage} sucessMeg={sucessMeg} formik={formik} />
           </div>
         )}
-        {
-          errorMessage &&(
-            <h1>{errorMessage} </h1>
-          )
-        }
-        {
-          sucessMeg &&(
-            <h1>{sucessMeg} </h1>
-          )
-        }
+
 
       </form >
     </>

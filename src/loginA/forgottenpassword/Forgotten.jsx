@@ -2,8 +2,8 @@ import React from 'react';
 import Inputbox from '../inputbox/inputbox';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import '../forgottenpassword/forgottenf.css'
-import glbs from '../loginimage/glb.png';
+import './forgottenf.css'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -26,7 +26,7 @@ const Forgotten = () => {
         <>
             <div className="form-for-forgotten">
                 <div className="logodiv">
-                    <img src={glbs} alt="" />
+                    <img src='./glb.png' alt="" />
                 </div>
 
                 <div className='forms-forgotten'>

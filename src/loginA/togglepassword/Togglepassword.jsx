@@ -13,7 +13,7 @@ const Togglepassword = ({name,value,onChange,onBlur,placeholder}) => {
  
  return(
  <div >
-    <input className='pass-word-input'
+    <input className='pass-word-input font-can'
     name={name} 
     autoComplete="off"
     type={showpassword?'text':'password'}
