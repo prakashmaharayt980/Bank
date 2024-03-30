@@ -1,37 +1,75 @@
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { urlUser, urlFundHistory,urlBank } from './RequiredUrlOfBackend'
+import AuthContext from './AuthContext';
+
 
 
 export const MyContext = createContext({
-    fetchData:()=>{}
+    fetchData: () => { },
+    HistoryData: () => { }
 });
 
 
 const MyContextProvider = ({ children }) => {
+    const { isLoginedIn } = useContext(AuthContext)
    
+    const headers = {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+    }
+
+    const [transactions, setTransactions] = useState([]);
+    const [BankData, setBankData] = useState([])
+
     const [user, setUser] = useState();
     const fetchData = async () => {
-        const url = 'http://192.168.1.77:8000/api/user/'  //manish
-     
+
+
         try {
-            const response = await axios.get(url, {
-                headers: {
-                    Authorization: `Token ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json' // Corrected header name
-                }
-            });
+            const response = await axios.get(urlUser, { headers });
             const data = response.data;
             setUser(data);
         } catch (error) {
             console.error('Error fetching data:', error);
-          
+
         }
     }
+    const HistoryData = async () => {
+        try {
+            const response = await axios.get(urlFundHistory, { headers });
+
+            setTransactions(response.data)
+
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+        }
+
+    }
+    const BankDataFromUrl = async () => {
+        try {
+            const response = await axios.get(urlBank, { headers });
+
+            setBankData(response.data)
+
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+        }
+
+    }
+    useEffect(() => {
+        if (isLoginedIn) {
+            fetchData()
+            HistoryData()
+            BankDataFromUrl()
+
+        }
+    }, [])
 
 
     return (
-        <MyContext.Provider value={{ user,fetchData }}>
+        <MyContext.Provider value={{ user,transactions,fetchData,BankData}}>
             {children}
         </MyContext.Provider>
     );

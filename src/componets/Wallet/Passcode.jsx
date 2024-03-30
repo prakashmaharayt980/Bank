@@ -30,7 +30,7 @@ function Passcode({ onClose, formik ,errorMessage,sucessMeg}) {
         if (keypress === 'Backspace' && index === 3) {
 
             inputRefs[index].current.value = ''
-            console.log(e);
+         
             inputRefs[index - 1].current.focus()
 
         }
@@ -39,10 +39,7 @@ function Passcode({ onClose, formik ,errorMessage,sucessMeg}) {
             inputRefs[index - 1].current.focus()
 
         }
-        if (keypress === 'Backspace' && index === inputRefs.length - 1) {
-            inputRefs[index].current.value = ''
-            inputRefs[index - 1].current.focus()
-        }
+       
 
     }
     // Array of input names

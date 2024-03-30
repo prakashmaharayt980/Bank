@@ -83,3 +83,14 @@ input[type=number] {
   text-align: center;
   
 }
+  
+a.active {
+  color: gray; /* Active link color */
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faWallet, faArrowRightArrowLeft, faCreditCard, faPeopleRoof, faBook, faBars } from '@fortawesome/free-solid-svg-icons';
+import {navlinkpath} from '../assets/RequiredDataBase'
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 
 import './Nav.css';
 
@@ -11,18 +13,6 @@ const Nav = () => {
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    const navlinkpath = [
-        { to: 'dashboard', icon: faChartLine, label: 'Dash-Board' },
-        { to: 'Wallets', icon: faWallet, label: 'Wallets' },
-        { to: 'transfer', icon: faArrowRightArrowLeft, label: 'Fund transfer' },
-        { to: 'card', icon: faCreditCard, label: 'Card' },
-        { to: '/', icon: faPeopleRoof, label: 'Cooprate Management' },
-        { to: 'history', icon: faBook, label: 'History' },
-        { to: '/', icon: faBars, label: 'QR' },
-    ]
-
-
 
     return (
         <div className={`m-0 p-0 side-nav-div h-screen  ${isMobileMenuOpen ? 'show' : 'hide'} `} style={{

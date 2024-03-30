@@ -1,27 +1,17 @@
 import React, { useContext, useState } from 'react';
-
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import ContinueConform from '../Wallet/ContinueConform';
 import PassCode from '../Wallet/Passcode';
-
 import axios from 'axios';
 import { MyContext } from '../../assets/Contextfile';
 import TypeComp from './TypeComp';
 import AmountInputDiv from './AmountInputDiv';
-import Bankdata from '../../assets/Bank.json'
 import { nanoid } from '@reduxjs/toolkit';
-import AuthContext from '../../assets/AuthContext';
+import {urlFundTransfer} from '../../assets/RequiredUrlOfBackend'
+import {BanksDetails,input_Bank} from '../../assets/RequiredDataBase'
+import {initialValuesFund,validationSchemaFund} from '../../assets/RequiredValidationFormik'
+import Loadingdiv from '../../loginA/Loading/Loadingdiv'
 
-
-//input box type
-const input_Bank = [
-
-  { name: 'Account_holder', type: 'text', label: "Account_name", id: 2 },
-  { name: 'Account_number', type: 'numeric', label: "Account_Number", id: 3 },
-  { name: 'load_amount', type: 'number', label: 'Amount' },
-  { name: 'remarks', type: 'text', label: 'Remark' },
-];
 
 const Fund = () => {
 
@@ -35,70 +25,28 @@ const Fund = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [sucessMeg, setsucessMeg] = useState('')
   const [sendTranjection, setsendTranjection] = useState(false)
-
-  //Bank details
-  const BanksDetails = [
-    { imgs: '/global.png', label: 'Same Bank', id: 1 },
-    { imgs: '/connectIps.png', label: 'Connect Ips', id: 2 },
-    { imgs: '/Khalti.png', label: 'Cross-bank', id: 3 },
-  ];
-  // const BanksDetails = Object.values(BanksData);
-
-  const initialValues = {
-    Account_holder: '',
-    Account_number: '',
-    load_amount: '',
-    remarks: '',
-    input_pin1: '',
-    input_pin2: '',
-    input_pin3: '',
-    input_pin4: '',
-  };
-
-  const validationSchema = Yup.object({
-    Account_number: Yup.number().required('Required').min(970000, "Required valid Id"),
-    Account_holder: Yup.string().required('Required'),
-    load_amount: Yup.number().required("Required").min(2, 'Amount must be above 10'),
-    remarks: Yup.string().required('Required'),
-    input_pin1: Yup.number().required("required"),
-    input_pin2: Yup.number().required("required"),
-    input_pin3: Yup.number().required("required"),
-    input_pin4: Yup.number().required("required")
-  });
-
+  const [isloading, setisloading] = useState(false)
 
   const formik = useFormik({
-    initialValues,
-    validationSchema,
+    initialValues:initialValuesFund,
+    validationSchema:validationSchemaFund,
     onSubmit: async (value, { resetForm }) => {
 
-      try {
-        const headers = {
-          Authorization: `Token ${localStorage.getItem('token')}`
-        };
-        const transaction_pin = parseInt(value.input_pin1 + value.input_pin2 + value.input_pin3 + value.input_pin4)
-        const receiver_account_number = value.Account_number
-        const receiver_name = value.Account_holder
-        const amount = value.load_amount
-        const remarks = value.remarks
-        const access_token = AuthsendingToken.token;
-
-
-        console.log('Bank', { transaction_pin, receiver_account_number, receiver_name, remarks, amount, access_token, sender: user?.user })
-
-        const response = await axios.post('http://192.168.1.77:8000/api/balance-transfer',
+      try {       
+          setisloading(true)
+        const response = await axios.post(urlFundTransfer,
           {
-            transaction_pin,
-            receiver_account_number,
-            receiver_name,
-            remarks,
-            amount,
+            transaction_pin:parseInt(value.input_pin1 + value.input_pin2 + value.input_pin3 + value.input_pin4),
+            receiver_account_number:value.Account_number,
+            receiver_name: value.Account_holder,
+            remarks:value.remarks,
+            amount:value.load_amount,
             credentials: "include"
-            // sender:user?.user?.id,
-            // access_token
+          
           },
           {
-            headers
+           Authorization: `Token ${localStorage.getItem('token')}`
+          //  Authorization: `Token ${user.access_token}`
           },
           {
             mode: "cors",
@@ -106,12 +54,14 @@ const Fund = () => {
           }
         )
 
-        if (response.ok) {
+        if (response===200) {
           setsucessMeg(response.data.message)
-          console.log(response.data.message)
+         setTimeout(() => {
+          setisloading(false)
+         }, 2000);
 
         }
-        if (!response.ok) {
+        if (!response===200) {
           errorMessage(response.data.message)
           console.log(response.data.message)
 
@@ -123,12 +73,15 @@ const Fund = () => {
       } finally {
         resetForm()
         restformTotal()
+        setTimeout(() => {
+          setisloading(false)
+         }, 2000);
       }
     },
   });
   //amount check
-  const { user } = useContext(MyContext)
-  const AuthsendingToken = useContext(AuthContext)
+  const { user,BankData } = useContext(MyContext)
+
   //continue for submit
   const handleButtonTrack = () => {
 
@@ -213,75 +166,79 @@ const Fund = () => {
   //amount
   const sending_amount = formik.values.load_amount;
   // bankid name
-  const bankname = Bankdata.find(bank => bank.id === 11)
+  const bankname = BankData.find(bank => bank.id === 11)
 
 
 
   return (
     <>
-      <form onSubmit={(e) => {
+     {
+      isloading ?(<Loadingdiv/> ): (
+        <form onSubmit={(e) => {
 
-        formik.handleSubmit(e);
-      }}>
-        {!showpasscode && (
-          <div className="Bank-container box-design flex flex-row h-90vh m-3">
-
-            <div className="Bank-left-container  w-3/5 mx-10">
-              <h1 className='text-center font-bold text-xl'>Fund Transfer</h1>
-
-              <TypeComp MethodDetails={BanksDetails}
-                selectedMethod={selectedBank}
-                readonly={readonly}
-                HandleMethodSelection={HandleBankSelection}
-              />
-
-              <hr className=' m-3' />
-
-              <div className="selectbank_div flex flex-col gap-3 text-xl ml-3 box-design" style={{ width: 'inherit' }}>
-                <label htmlFor='selected' className=' p-3  text-2xl font-medium underline  ' style={{ textDecorationThickness: '2px' }}>{selectedBank ? selected_label_method : 'Choose Bank'} </label>
-                <select value={selectedOptionValue} name='selected' onChange={handleBankChange} className=' p-3 border '>
-                  {
-                    Bankdata.map((bank) => (
-                      <option
-                        value={selectedBank && selectedBank === 1 ? bankname.name : (bank.name)}
-                        key={nanoid()}
-
-                      >{selectedBank && selectedBank === 1 ? bankname.name : (bank.name)}
-                      </option>
-
-                    ))
-                  }
-                </select>
+          formik.handleSubmit(e);
+        }}>
+          {!showpasscode && (
+            <div className="Bank-container box-design flex flex-row h-90vh m-3">
+  
+              <div className="Bank-left-container  w-3/5 mx-10">
+                <h1 className='text-center font-bold text-xl'>Fund Transfer</h1>
+  
+                <TypeComp MethodDetails={BanksDetails}
+                  selectedMethod={selectedBank}
+                  readonly={readonly}
+                  HandleMethodSelection={HandleBankSelection}
+                />
+  
+                <hr className=' m-3' />
+  
+                <div className="selectbank_div flex flex-col gap-3 text-xl ml-3 box-design" style={{ width: 'inherit' }}>
+                  <label htmlFor='selected' className=' p-3  text-2xl font-medium underline  ' style={{ textDecorationThickness: '2px' }}>{selectedBank ? selected_label_method : 'Choose Bank'} </label>
+                  <select value={selectedOptionValue} name='selected' onChange={handleBankChange} className=' p-3 border '>
+                    {
+                      BankData.map((bank) => (
+                        <option
+                          value={selectedBank && selectedBank === 1 ? bankname.name : (bank.name)}
+                          key={nanoid()}
+  
+                        >{selectedBank && selectedBank === 1 ? bankname.name : (bank.name)}
+                        </option>
+  
+                      ))
+                    }
+                  </select>
+                </div>
+  
+                <AmountInputDiv
+                  selectedMethod={selectedBank}
+                  input_Method={input_Bank}
+                  handleButtonTrack={handleButtonTrack}
+                  Method_label={selected_label_method}
+                  readonly={readonly}
+                  formik={formik}
+                />
               </div>
-
-              <AmountInputDiv
-                selectedMethod={selectedBank}
-                input_Method={input_Bank}
-                handleButtonTrack={handleButtonTrack}
-                Method_label={selected_label_method}
-                readonly={readonly}
-                formik={formik}
-              />
+  
+  
+              <div className="Bank-right-container h-8vh mt-5">
+                {checkedamount && clickedsubmitted && sendTranjection && (
+                  <ContinueConform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
+                )}
+              </div>
+  
+              {!checkedamount && clickedsubmitted && <p>Please check Your Amount</p>}
             </div>
-
-
-            <div className="Bank-right-container h-8vh mt-5">
-              {checkedamount && clickedsubmitted && sendTranjection && (
-                <ContinueConform tranjection={transection} onContinue={handlePasscode} OnreadMode={restreadmode} />
-              )}
+          )}
+          {showpasscode && (
+            <div className='flex justify-center items-center flex-col gap-3 h-80vh w-4/5 mx-auto my-4 z-index-top box-design'>
+              <PassCode onClose={handlePasscode} errorMessage={errorMessage} sucessMeg={sucessMeg} formik={formik} />
             </div>
-
-            {!checkedamount && clickedsubmitted && <p>Please check Your Amount</p>}
-          </div>
-        )}
-        {showpasscode && (
-          <div className='flex justify-center items-center flex-col gap-3 h-80vh w-4/5 mx-auto my-4 z-index-top box-design'>
-            <PassCode onClose={handlePasscode} errorMessage={errorMessage} sucessMeg={sucessMeg} formik={formik} />
-          </div>
-        )}
-
-
-      </form >
+          )}
+  
+  
+        </form >
+      )
+     }
     </>
   );
 };

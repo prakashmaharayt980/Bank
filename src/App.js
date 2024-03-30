@@ -1,21 +1,25 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './assets/Layout';
-import ActivationLogin from './loginA/ActivationLogin/ActivationLogin';
+
 import Forgotten from './loginA/forgottenpassword/Forgotten';
 import Login from './loginA/login/Login';
 import Dashboard from './componets/Dash_board/Dashbord';
 import Wallets from './componets/Wallet/Wallets';
 import Fund from './componets/Fundtransfer/Fund';
-import PageNotFound from './assets/PageNotFound';
-import Historyfile from './componets/HistoryFile/Historyfile';
+
+import HistoryTable from './componets/HistoryFile/HistoryTable';
 import Cardfile from './componets/Card/Cardfile';
-import Passcode from './componets/Wallet/Passcode';
 
 
-const router = createBrowserRouter([
+import ParentsActivation from './loginA/ActivationLogin/ParentsActivation';
+import ApplyCard from './componets/Card/ApplyCard';
+import StateCard from './componets/Card/StateCard';
+
+
+const router = createBrowserRouter([ 
   {
     path: 'activationlogin',
-    element: <ActivationLogin />,
+      element: <ParentsActivation/>,
   },
   {
     path: 'forgotten',
@@ -49,11 +53,22 @@ const router = createBrowserRouter([
       },
       {
         path: 'history',
-        element: <Historyfile/>,
+        element: <HistoryTable/>,
       },
       {
         path: 'card',
         element: <Cardfile/>,
+        children:[
+        {
+          path:'applycard',
+          element:<ApplyCard/>
+        },
+        {
+          path:'statecard',
+          element:<StateCard/>
+        },
+
+        ]
       },
      
     ],
@@ -63,7 +78,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <main>
-      <RouterProvider router={router}/>      
+      <RouterProvider router={router}/>    
       
     </main>
   );

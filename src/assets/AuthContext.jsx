@@ -12,7 +12,7 @@ export const AuthContextProvider=({children})=>{
     const initalToken=localStorage.getItem('token') || ''
    
     const [token, settoken] = useState(initalToken)
-    const isLoginedIn= true // !!token
+    const isLoginedIn= true //!!token
 
     const handlerLogin=(token)=>{
        
