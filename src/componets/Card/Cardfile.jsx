@@ -16,6 +16,7 @@ function Cardfile() {
      <nav>
       <ul className='flex flex-row justify-evenly' >
         {
+          
           NavOfCard.map((nav,index)=>(
           <li key={index}>
             <NavLink to={nav.to} activeclassname="active">

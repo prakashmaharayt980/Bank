@@ -10,8 +10,9 @@ const NavTop = () => {
   const nagvi=useNavigate()
 
     const exitHandle = () => {
-       AuthLog.logout()
-      nagvi('/',{replace:true})
+       localStorage.clear('token')
+       localStorage.removeItem('token')
+      nagvi('/login',{replace:true})
                
     };
 

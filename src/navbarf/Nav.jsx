@@ -15,9 +15,9 @@ const Nav = () => {
     };
 
     return (
-        <div className={`m-0 p-0 side-nav-div h-screen  ${isMobileMenuOpen ? 'show' : 'hide'} `} style={{
-            scrollSnapType: 'y mandatory',
-
+        <div className={`m-0 p-0 side-nav-div   ${isMobileMenuOpen ? 'show' : 'hide'} `} style={{
+            // scrollSnapType: 'y mandatory',
+overflow:'hidden',
             // position:'absolute',
             boxShadow: 'rgba(24, 20, 21, 0.6) 2px 13px 9px'
         }}>
@@ -26,9 +26,10 @@ const Nav = () => {
             </button>
             <nav className={`w-full nav-div ${isMobileMenuOpen ? 'show' : 'hide'} `}>
                 <div className="logo-div relative top-3 ">
-                    <img src='./glb.png' className=' w-fit' alt="global-logo" />
+                    {/* <img src='./glb.png' className=' w-fit' alt="global-logo" /> */}
+                    <span className=' text-center w-full text-2xl text-blue-700 underline'>ABC Bank</span>
                 </div>
-                <ul className='h-screen flex flex-col gap-4 justify-start mt-5'>
+                <ul className=' flex flex-col gap-4 justify-start mt-5'>
                     {
                         navlinkpath.map((link, index) => (
                             <li className='list-nav' key={index}>

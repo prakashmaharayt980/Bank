@@ -14,25 +14,39 @@ import Cardfile from './componets/Card/Cardfile';
 import ParentsActivation from './loginA/ActivationLogin/ParentsActivation';
 import ApplyCard from './componets/Card/ApplyCard';
 import StateCard from './componets/Card/StateCard';
-
+import Ottp from './loginA/ActivationLogin/Ottp';
+import SuccessMessage from './assets/SuccessMsg';
+import PageNotFound from './assets/PageNotFound';
+import ReceivedTable from './componets/HistoryFile/ReceivedTable';
 
 const router = createBrowserRouter([ 
   {
     path: 'activationlogin',
       element: <ParentsActivation/>,
-  },
+  }
+,
+  {
+    path: 'successMsg',
+      element: <SuccessMessage/>,
+  }
+,
+  {
+    path: 'ottp',
+      element: <Ottp/>,
+  }
+,
   {
     path: 'forgotten',
     element: <Forgotten />,
   },
   {
-    path: '/',
+    path: '/login',
     element: <Login />,
   },
   
   {
     path: '*',
-    element:<Login /> ,
+    element:<PageNotFound /> ,
   },
   {
     path: '/',
@@ -40,7 +54,7 @@ const router = createBrowserRouter([
     
     children: [
       {
-        path: 'dashboard',
+        path: 'dash',
         element: <Dashboard />,
       },
       {
@@ -54,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: 'history',
         element: <HistoryTable/>,
+      },
+      {
+        path: 'Recived',
+        element: <ReceivedTable/>,
       },
       {
         path: 'card',

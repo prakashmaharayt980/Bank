@@ -1,78 +1,71 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { urlUser, urlFundHistory,urlBank } from './RequiredUrlOfBackend'
+import { urlUser, urlFundHistory, urlBank, urlReceived } from './RequiredUrlOfBackend';
 import AuthContext from './AuthContext';
 
-
-
 export const MyContext = createContext({
-    fetchData: () => { },
-    HistoryData: () => { }
+  user: null,
+  transactions: [],
+  bankData: [],
+  fetchData: () => {}
 });
 
-
 const MyContextProvider = ({ children }) => {
-    const { isLoginedIn } = useContext(AuthContext)
-   
-    const headers = {
-        Authorization: `Token ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+  const { isLoggedIn } = useContext(AuthContext);
+
+  const [user, setUser] = useState({});
+  const [transactions, setTransactions] = useState([]);
+  const [transactionRecieved, setTransactionsRecived] = useState([]);
+  const [bankData, setBankData] = useState({});
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  const headers = {
+    Authorization: `Token ${token}`,
+    'Content-Type': 'application/json'
+  };
+
+  const fetchData = async () => {
+    if (!token) return;
+
+    try {
+      const [userResponse, transactionsResponse, bankDataResponse,transactionsRecivedResponse] = await Promise.all([
+        axios.get(urlUser, { headers }),
+        axios.get(urlFundHistory, { headers }),
+        axios.get(urlBank, { headers }),
+        axios.get(urlReceived, { headers }),
+      ]);
+
+      setUser(userResponse.data);
+      localStorage.setItem('user', JSON.stringify(userResponse.data));
+      setTransactionsRecived(transactionsRecivedResponse.data)
+      setTransactions(transactionsResponse.data);
+      setBankData(bankDataResponse.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
+  };
 
-    const [transactions, setTransactions] = useState([]);
-    const [BankData, setBankData] = useState([])
+  useEffect(() => {
+    fetchData();
+  }, [token]);
 
-    const [user, setUser] = useState();
-    const fetchData = async () => {
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newToken = localStorage.getItem('token');
+      setToken(newToken);
+    };
 
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
-        try {
-            const response = await axios.get(urlUser, { headers });
-            const data = response.data;
-            setUser(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-
-        }
-    }
-    const HistoryData = async () => {
-        try {
-            const response = await axios.get(urlFundHistory, { headers });
-
-            setTransactions(response.data)
-
-        } catch (error) {
-            console.error('Error fetching transactions:', error);
-        }
-
-    }
-    const BankDataFromUrl = async () => {
-        try {
-            const response = await axios.get(urlBank, { headers });
-
-            setBankData(response.data)
-
-        } catch (error) {
-            console.error('Error fetching transactions:', error);
-        }
-
-    }
-    useEffect(() => {
-        if (isLoginedIn) {
-            fetchData()
-            HistoryData()
-            BankDataFromUrl()
-
-        }
-    }, [])
-
-
-    return (
-        <MyContext.Provider value={{ user,transactions,fetchData,BankData}}>
-            {children}
-        </MyContext.Provider>
-    );
+  return (
+    <MyContext.Provider value={{ user, transactions, bankData, fetchData,transactionRecieved }}>
+      {children}
+    </MyContext.Provider>
+  );
 };
 
 export default MyContextProvider;

@@ -24,16 +24,20 @@ const Login = () => {
        initialValues:initialValuesLogin,
         validationSchema: validationSchemaLogin,
         onSubmit: async (values, resetForm) => {
-          
+           
             try {
                 setLoading(true); 
-                const response = await axios.post(urlLogin, {values}); 
+                const response = await axios.post(urlLogin, values); 
+                console.log( 'res',response)
                 if (response.status === 200) {
                     // const data = response.data;
-                    Authtoken.login(response.access_token);
-                    // fetching.fetchData();
-                    localStorage.setItem('token', response.access_token);                  
-                    navigate('/dashboard', { replace: true });
+                    localStorage.setItem('token', response?.data?.access_token);                         
+                        localStorage.setItem('user',response.data)  
+                    
+                }
+                if(localStorage.getItem('token') !==null){
+                    fetching.fetchData() 
+                    navigate('/dash', { replace: true });
                 }
             } catch (error) {
                 setErrorMsg(error.message);
@@ -46,13 +50,12 @@ const Login = () => {
     return (
         <form className='forms-login' onSubmit={formik.handleSubmit}>
             <div className="topbar">
-                <img src='/glb.png' alt="img1" id='topimg' />
+              <span className=' text-center w-full text-2xl text-blue-700 underline'>ABC Bank</span>
             </div>
             <div className="midbar">
                 <div className="inputbar font-can">
                     <label htmlFor="email" className='label-login'>Email or Phone</label>
-                    <input
-                      
+                    <input 
                         type="text"
                         name='email'
                         autoComplete='off'

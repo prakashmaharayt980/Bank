@@ -9,29 +9,19 @@ const AuthContext = createContext({
 })
 
 export const AuthContextProvider=({children})=>{
-    const initalToken=localStorage.getItem('token') || ''
+    const initalToken=localStorage.getItem('token')
+  
+    const isLoginedIn= !!initalToken
+
    
-    const [token, settoken] = useState(initalToken)
-    const isLoginedIn= true //!!token
 
-    const handlerLogin=(token)=>{
-       
-        settoken(token)
-        localStorage.setItem('token',token)
-
-    }
-
-    const handlerLogout=()=>{
-        
-           settoken(null)
-           localStorage.removeItem('token')
-    }
+    
 
     const ContestValue={
-        token:token,
+     
         isLoginedIn:isLoginedIn,
-        login:handlerLogin,
-        logout:handlerLogout
+    
+      
         
     }
   
